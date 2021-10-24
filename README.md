@@ -1,45 +1,9 @@
-We will use charts (Helm’s packaging format) from the stable Helm repo to help getting started with monitoring Kubernetes
+This Repo contains 3 different folders. 
 
-Installing Helm
-Add the stable repo to your Helm installation:
-
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-helm repo update
-
-Connect to K*S Cluster
-
-create a custom namespace on our K8s cluster to manage all the monitoring stack:
-
-kubectl create ns monitoring
+ci-cd ---> This folder contains Github action CI-CD pipleine file. We need to setup the env variables in GITHUB Secret so that we can use them repeatatively as ENV Variable. 
 
 
-helm install prometheus stable/prometheus --namespace monitoring
+eks ---> This folder has terraform code to create k8s cluster. It has Readme file which gives instruction how to run them. 
 
-Then we can create a NodePort using K8s’ native imperative command which allows us to communicate directly to the pod from outside the cluster.
-
-
-kubectl -n monitoring expose pod prometheus-server-9646d697-gl47z --type NodePort --name prometheus-server-np
-service/prometheus-server-np exposed
-
-kubectl get svc -n monitoring
-
-
-Setup Node Exporter on Kubernetes
-
-
-kubectl create -f daemonset.yaml
-
-kubectl create -f service.yaml
-
-kubectl get endpoints -n monitoring 
-
-
-Add a below scrape config to the Prometheus config file to discover all the node-exporter pods.
-
-      - job_name: 'node-exporter'
-        kubernetes_sd_configs:
-          - role: endpoints
-        relabel_configs:
-        - source_labels: [__meta_kubernetes_endpoints_name]
-          regex: 'node-exporter'
-          action: keep
+monitoring. 
+service/prometheus-server-np exposed ---> This folder contains the files related to monitoring setup.  It has Readme file which gives instruction how to run them. 
