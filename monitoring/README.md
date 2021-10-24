@@ -1,4 +1,6 @@
-We will use charts (Helm’s packaging format) from the stable Helm repo to help getting started with monitoring Kubernetes
+This file contains the files related to monitoring setup. We will deploy prometheus on k8s cluster with node exporter using steps below. 
+
+We will use charts (Helm’s packaging format) from the stable Helm repo to help getting started with monitoring Kubernetes.
 
 Installing Helm
 Add the stable repo to your Helm installation:
